@@ -13401,11 +13401,6 @@ Make sure to keep track of the various features and conditions you tried before 
         <span class="c1"># Remove the &#39;pass&#39; statement below </span>
         <span class="c1"># and write your prediction conditions here</span>
         
-        <span class="c1"># Here&#39;s how we are processing</span>
-        <span class="c1"># Survived If passenger is female with less than 3 parents, children, spouse and sibling count (two different featuers) </span>
-        <span class="c1"># else (that is male) and age less than 10 years then also survived.</span>
-        <span class="c1"># Everyone else -- not survived.</span>
-        
         <span class="k">if</span> <span class="n">passenger</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;female&quot;</span><span class="p">:</span>
             <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">passenger</span><span class="p">[</span><span class="s2">&quot;Parch&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">passenger</span><span class="p">[</span><span class="s2">&quot;SibSp&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">passenger</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">:</span>  
@@ -13469,7 +13464,7 @@ Make sure to keep track of the various features and conditions you tried before 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer</strong>: <em>Replace this text with your answer to the question above.</em></p>
+<p><strong>Answer</strong>: We have already established from previous analysis that a female's chance of survial is very high so the approach I took to iprove that segment a little bit. I explored whether class of service or family size has any impact on chacnes of survial as other features seem very irrelevant like ticket number or cabin allocation. If you look at the charts above it clearly shows that female in the family of 3 or more people has less chances of sruvival compared to females in small families. That's an extra filter I applied to improve the accuracy a little bit.</p>
 
 </div>
 </div>
