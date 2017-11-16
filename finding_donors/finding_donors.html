@@ -14200,8 +14200,8 @@ Support Vector Classifier seems to perform fairly well on test data compared to 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong> 
-Our primary goal is to find a model that will predict the target donors based on income range above or below 50K. Looking at the student data it seems to have several interesting features that could factor into whether a person makes more or less than 50K. Our choice here is support vector machine which takes a little bit longer to train but with high dimensional data perform really well.</p>
-<p>Support Vector Machine is very powerful classifier, imagine there were only three features in the data set for example age, education and sex so a point in these dimensions such as (35years, college grad, female) will be a support vector. The job of the SVM algorithm to separate these points using lines or planes from each other and give us a decision boundary.</p>
+Our primary goal is to find a model that will predict the target donors based on income range above or below 50K. Looking at the student data it seems to have several interesting features that could factor into whether a person makes more or less than 50K. Our choice here is Ada Boosting ensamble which takes a little bit longer to train but with perform really well.</p>
+<p>Ada-boost classifier combines weak classifier algorithm to form strong classifier. It etrains the algorithm iteratively by choosing the training set based on accuracy of previous training. The weightage of each trained classifier at any iteration depends on the accuracy achieved.</p>
 
 </div>
 </div>
