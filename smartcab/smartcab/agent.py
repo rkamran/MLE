@@ -26,7 +26,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set any additional class parameters as needed
-        self.n_trial=0.0
+        self.n_trial=0
         np.random.seed(21)
 
 
@@ -46,7 +46,7 @@ class LearningAgent(Agent):
         # If 'testing' is True, set epsilon and alpha to 0
         if not testing:
             self.n_trial+=1.0
-            self.epsilon = 1.0/self.n_trial**2            
+            self.epsilon = 1.0/self.n_trial**2
         else:
             self.epsilon = 0
             self.alpha = 0
@@ -140,14 +140,14 @@ class LearningAgent(Agent):
         if self.learning :   
             if maxQ is not None:
                 if self.epsilon > 0.:
-                    print("Choosing max or random")
+                    print("Choosing max or random ")
                     action = choice([maxQ, action], 1, p=[1-self.epsilon, self.epsilon])[0]
                 else:
                     action = maxQ
                
         elif maxQ is not None:
             action = maxQ
-            
+                
         return action
 
 
@@ -161,10 +161,10 @@ class LearningAgent(Agent):
         ###########
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
-        if self.learning and state in self.Q:
+        if self.learning and state in self.Q and self.alpha > 0:
             print("Modifying for action, reward", action, reward)
             state_action = self.Q[state]
-            state_action[action] = reward
+            state_action[action] += reward*self.alpha
             self.Q[state] = state_action
             
         return
@@ -203,7 +203,7 @@ def run():
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
     #agent = env.create_agent(LearningAgent)
-    agent = env.create_agent(LearningAgent, learning=True, alpha=0.05)
+    agent = env.create_agent(LearningAgent, learning=True, alpha=0.7, epsilon=1.0)
     
     ##############
     # Follow the driving agent
@@ -227,7 +227,7 @@ def run():
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=8, tolerance=0.0004)
+    sim.run(n_test=12, tolerance=0.0008)
 
 
 if __name__ == '__main__':
