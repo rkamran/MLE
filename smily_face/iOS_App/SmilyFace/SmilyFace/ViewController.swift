@@ -14,6 +14,7 @@ import Vision
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     @IBOutlet var label: UILabel?
+    var counter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+        //Every 10th fame
+//        if self.counter < 10 {
+//            counter += 1
+//            return
+//        }
+//        
+//        self.counter = 0
+        
         // load our CoreML Pokedex model
         guard let model = try? VNCoreMLModel(for: smilyFace().model) else { return }
 

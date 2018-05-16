@@ -10,7 +10,7 @@ from sklearn.metrics import regression
 from keras.applications import ResNet50
 import numpy as np
 
-def train_FBP5500(db_file, model_file, batch_size=16, lr=0.0001, epochs=20, input_shape=(350, 350, 3)):
+def train_FBP5500(db_file, model_file, batch_size=16, lr=0.0001, epochs=20, input_shape=(350, 350, 3), loss="mean_squared_error"):
     train_db = h5py.File(db_file, "r")
     features = np.array(train_db["features"])
     labels = np.array(train_db["labels"])
@@ -18,13 +18,14 @@ def train_FBP5500(db_file, model_file, batch_size=16, lr=0.0001, epochs=20, inpu
     trainX, testX, trainY, testY = train_test_split(features, labels, test_size=0.1, shuffle=True)
 
     model = build_model((features.shape[-1],))    
-    model.compile(loss="mean_squared_error", 
+    model.compile(loss=loss, 
                   optimizer=Adam(lr=lr, decay=lr/epochs), 
                   metrics=["acc"])
    
     H = model.fit(trainX, trainY, 
                   epochs=epochs, 
                   batch_size=batch_size,
+                  validation_split=0.1,
                   callbacks=[ModelCheckpoint(model_file, monitor="loss", save_best_only=True)])
 
     print("[INFO] Saving Model....") 
