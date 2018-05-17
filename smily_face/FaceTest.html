@@ -11714,19 +11714,6 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
-<style type="text/css">
-    /*This file contains any manual css for this page that needs to override the global styles.
-This is only required when different pages style the same element differently. This is just
-a hack to deal with our current css styles and no new styling should be added in this file.*/
-
-#ipython-main-app {
-    position: relative;
-}
-#jupyter-main-app {
-    position: relative;
-}
-
-    </style>
 
 
 <style type="text/css">
@@ -11791,19 +11778,18 @@ div#notebook {
 <h1 id="Machine-Learning-Engineer-Nanodegree">Machine Learning Engineer Nanodegree<a class="anchor-link" href="#Machine-Learning-Engineer-Nanodegree">&#182;</a></h1><h2 id="Capstone-Project">Capstone Project<a class="anchor-link" href="#Capstone-Project">&#182;</a></h2><hr>
 <p>Rashid Kamran<br>
 May 16, 2018<br></p>
-<p>Proposal <a href="https://github.com/rkamran/MLE/blob/master/capstone/proposal.pdf">https://github.com/rkamran/MLE/blob/master/capstone/proposal.pdf</a></p>
-<hr>
-<h1 id="I.-Defintion">I. Defintion<a class="anchor-link" href="#I.-Defintion">&#182;</a></h1><h2 id="Project-Overview">Project Overview<a class="anchor-link" href="#Project-Overview">&#182;</a></h2><p>I recently came across an interesting study “A Diverse Benchmark Dataset for Multi-Paradigm Facial Beauty Prediction (FBP)”[<a href="https://arxiv.org/pdf/1801.06345.pdf">1</a>].  The study mainly assessed the facial attractiveness that is consistent with human perception.</p>
-<p>In my project I want to replicate the results of the study and take it fun step further to deploy the trained model to an iOS app that would help people capture best of their faces (aka selfies) using an indicator on the screen.</p>
-<h2 id="Problem-Statement">Problem Statement<a class="anchor-link" href="#Problem-Statement">&#182;</a></h2><p>This is a classic image analysis problem but rather than classifying we are assigning a numerical score between 0-5 to measure attractiveness based on the faces in the dataset. Higher score perceived to be more attractive based on the score provided in the dataset. 
-The utility of the original regression seems limited as it would be unwise to put a score on a face but by using the technique I will find a way to help people capture their best-looking faces.</p>
-<h2 id="Metrics">Metrics<a class="anchor-link" href="#Metrics">&#182;</a></h2><p>For a simple regression albeit on image data we will be relying on MSE evaluation metrics. I will try to compare against study’s results using 90/10 train/test split and 90/10 train/validation split during training.</p>
-<p><img src="./MSE.png"></p>
-<p>For anecdotal proofs I have also visualized the results of the model using some celebrities, personal, family and friend’s photos.</p>
-<!--
-I am trying to replicate the study and later will use the model to create a mobile app to assign a as score in real time.
-In my solution I am will use ResNet50 as feature extractor  and then will try to train a dense layer as a regressor that will be benched marks against Support Vector Regressor
--->
+<p>Proposal <a href="https://github.com/rkamran/MLE/blob/master/capstone/proposal.pdf">https://github.com/rkamran/MLE/blob/master/capstone/proposal.pdf</a> <br>
+Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf">https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Project-imports">Project imports<a class="anchor-link" href="#Project-imports">&#182;</a></h3><p><code>config.py</code>, <code>dataprocessor.py</code> and <code>train.py</code> have mojority of the source code</p>
+
 </div>
 </div>
 </div>
@@ -11847,10 +11833,7 @@ In my solution I am will use ResNet50 as feature extractor  and then will try to
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="II.-Analysis">II. Analysis<a class="anchor-link" href="#II.-Analysis">&#182;</a></h1><h2 id="Data-Exploration">Data Exploration<a class="anchor-link" href="#Data-Exploration">&#182;</a></h2><p>For this project I am relying on the original dataset [<a href="https://github.com/HCIILAB/SCUT-FBP5500-Database-Release">3</a>] of 5500 face images (Asians and Caucasian male/female). Every face has given a score between 0-5 of perceived attractiveness. All images are 350x350 in shape. Out of 5500 images 4000 faces are Asian(male/female) so it would be interesting at least anecdotally to see the effect on other faces not represented in the dataset.</p>
-<p>Here I am showing an example from the orginal paper that shows how the dataset is actually distributed.</p>
-<p><img src="./images/SCUT-FBP5500.jpg" width="60%"></p>
-<h2 id="Exploratory-Visualization">Exploratory Visualization<a class="anchor-link" href="#Exploratory-Visualization">&#182;</a></h2><p>Below is a simple histogram of the scores in the original data. This gives us a glimpse of what kind of dataset we have in our hand. It makes as majority scores are regressing to the middle when it comes to attractiveness. It is important to note that there are some celebrity faces in the dataset and that might explain some medium towers around 4.0.</p>
+<h1 id="II.-Analysis">II. Analysis<a class="anchor-link" href="#II.-Analysis">&#182;</a></h1><p>Quickly checking the distribution of the data</p>
 
 </div>
 </div>
@@ -11912,27 +11895,7 @@ In my solution I am will use ResNet50 as feature extractor  and then will try to
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Algorithms-and-Techniques">Algorithms and Techniques<a class="anchor-link" href="#Algorithms-and-Techniques">&#182;</a></h2><p>For this particular problem I am going to split it into two problems. First feature extraction and for that I am planning to use fully trained ResNet50. This particular deep residual network is really good in extracting features from image data.</p>
-<p>In the second part I am treating this problem as a simple regression problem. Tha will make it much easier to train for benchmark and custom solution.</p>
-<h2 id="Benchmark">Benchmark<a class="anchor-link" href="#Benchmark">&#182;</a></h2><p>I am going to establish a benchmark by using out of the box Support Vector Regressor and use it on top of extracted features. This will give me a baseline to meet or beat.</p>
-<p>Please Note: Actual calculation is being done below after data preprocessing.</p>
-<h1 id="III.-Methodology">III. Methodology<a class="anchor-link" href="#III.-Methodology">&#182;</a></h1><h2 id="Preprocessing">Preprocessing<a class="anchor-link" href="#Preprocessing">&#182;</a></h2><p>For dataset involging images it's always a good idea to preprocess, extract feature and serialize. This step will result in faster training time later. It would be much easier to crate custom generator later.</p>
-<p><code>dataprocessor.py</code> in the source folder provide these utility methods. I am loading a batch of image, extracting features using ResNet50 and storing them into HDF5 file along with associated features.</p>
-<p>Once completed all <code>5500x350x350x3</code>tensors will be saved as <code>5500x2048</code> features map in <code>./output/FaceDB.hd5f</code> file. These featuers are the output of the RestNet50 imagenet dataset.</p>
-<p>Here's a block of code that run the image data through ResNet50. It's a prety straight forward implementation and used Keras image processing utilities to load and convert images into 4D tensors.</p>
-
-<pre><code>def extract_feature(image_files=[], input_shape=(350, 350, 3)):
-    images = []
-    for image_file in image_files:        
-        img = preprocess_input(img_to_array(load_img(image_file)))
-        images.append(img)
-
-    images = np.stack(images)        
-    model = ResNet50(weights="imagenet", 
-                     include_top=False, 
-                     input_shape=input_shape,
-                     pooling="avg")
-    return model.predict(images)</code></pre>
+<h2 id="Preprocessing">Preprocessing<a class="anchor-link" href="#Preprocessing">&#182;</a></h2><p>Passing all dataset images through ResNet50 and storing extracted features into a .hdf5 databse.</p>
 
 </div>
 </div>
@@ -11983,10 +11946,7 @@ In my solution I am will use ResNet50 as feature extractor  and then will try to
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Implementation">Implementation<a class="anchor-link" href="#Implementation">&#182;</a></h2><p>The first thing I am doing is to establish a baseline results. They way I thought it's better to process is not involve feature extraction as part of the main solution and put the baseline and actual implementation on top of the extracted features.</p>
 <h3 id="Baseline">Baseline<a class="anchor-link" href="#Baseline">&#182;</a></h3><p>For establishing baseline I am using <code>sklearn.svm.SVR</code>. Since we have already extracted features so we can run it pretty quicly on a relative small dataset.</p>
-<p>The loss function as I mentioned earlier will be Mean Squared Error for our baseline and propsosed solution. It's the same old trusted function and can be described as</p>
-<p><img src="./MSE.png" width="30%" align="center"></p>
 
 </div>
 </div>
@@ -12041,13 +12001,7 @@ In my solution I am will use ResNet50 as feature extractor  and then will try to
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Dense-Layer-implementation">Dense Layer implementation<a class="anchor-link" href="#Dense-Layer-implementation">&#182;</a></h3><p>I am just adding a dense layer on top fo the extracted features for simple regression. After running the ResNet feature extractor this problem has become very simple.</p>
-<p>I am also using 90/10 split for traing and testing. The only differnce is the 10% data is used as validation date during training. Notice how fast the training is due to the fact that the hard part has already been taking care of. I am using Titan XP for training.</p>
-<h3 id="Refinement">Refinement<a class="anchor-link" href="#Refinement">&#182;</a></h3><p>For optimization I have decided to use <code>Adam</code> optimization with a learning rate or <code>0.0001</code>. The results converge rather quicly probably becasue of the datasize so to keep it going for atleast <code>20</code> epochs I have also added a learning rate decay. Here's a complete compilation of the model</p>
-
-<pre><code>model.compile(loss=loss, 
-              optimizer=Adam(lr=lr, decay=lr/epochs), 
-               metrics=["acc"])</code></pre>
+<h3 id="Dense-Layer-implementation">Dense Layer implementation<a class="anchor-link" href="#Dense-Layer-implementation">&#182;</a></h3><p>Adding a Dense layer on top of ResNet50 for regression</p>
 
 </div>
 </div>
@@ -12136,22 +12090,7 @@ Epoch 20/20
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="IV.-Results">IV. Results<a class="anchor-link" href="#IV.-Results">&#182;</a></h1><h2 id="Model-Evaluation-and-Validation">Model Evaluation and Validation<a class="anchor-link" href="#Model-Evaluation-and-Validation">&#182;</a></h2><p>For training and evaluting the model I initially did a 90/10 split to set aside 10% data. And during training furhter split the data into 90/10 to have epoch level validation. Both splits shuffle the dataset as well.</p>
-
-<pre><code>#1. train/test split
-trainX, testX, trainY, testY = train_test_split(features, labels, test_size=0.1, shuffle=True)
-
-#2. Validation Split on remaining data. 80% then used to train
-H = model.fit(trainX, trainY, 
-                  epochs=epochs, 
-                  batch_size=batch_size,
-                  validation_split=0.1,
-                  callbacks=[ModelCheckpoint(model_file, monitor="loss", save_best_only=True)])</code></pre>
-<p>Support Vector classifier results - <strong><code>[INFO] Baseline Score (MSE) 0.03305848691971774</code></strong> <br>
-Dense layer on top of ResNet - <strong><code>[INFO] Regression score (MSE) on test data 0.029269013553857803</code></strong></p>
-<p>It's not an extra ordinary improvement but might be slightly faster when used on edge devices.</p>
-<h2 id="Justification">Justification<a class="anchor-link" href="#Justification">&#182;</a></h2><p>The below graph provide a vidualization of how 20 epoch training immediately converged and didn't imrove much. I could easiy stop the training after 5 epochs.</p>
-<p>I believe well structured data, a good feature extractor like ResNet50 and tilt towards mean immediately get to maximum accuracy which is better than the orinal study itself [<a href="https://arxiv.org/pdf/1801.06345.pdf">6</a>].</p>
+<h1 id="IV.-Results">IV. Results<a class="anchor-link" href="#IV.-Results">&#182;</a></h1><p>A look at the training history</p>
 
 </div>
 </div>
@@ -12198,6 +12137,15 @@ Dense layer on top of ResNet - <strong><code>[INFO] Regression score (MSE) on te
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Random-Testing">Random Testing<a class="anchor-link" href="#Random-Testing">&#182;</a></h3><p>Using totally diffrent images which I randomly collected to demonstrate the anecdotal performance of the mdoel</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -12256,9 +12204,7 @@ Features extracted. Shape: (24, 350, 350, 3)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="V.-Conclusion">V. Conclusion<a class="anchor-link" href="#V.-Conclusion">&#182;</a></h1><p>It's very hard to get similar dataset or create a large split for testing while the actual size is only 5500 so I am resorting to some anecdotal proofs by using some faces which I (eye of the beholder) personally think should get high/low score.</p>
-<h2 id="Free-Form-Visualization">Free-Form Visualization<a class="anchor-link" href="#Free-Form-Visualization">&#182;</a></h2><h3 id="Anecdotal-proof-and-visual-reassurance">Anecdotal proof and visual reassurance<a class="anchor-link" href="#Anecdotal-proof-and-visual-reassurance">&#182;</a></h3><p>Below is a grid of some personal, friends, random folks and celebrity photos. Model seems to be assigning high scores to celebrities and regressing back to mean when it comes to normal faces. In some cases I tried to stylize and was able to get some good score.</p>
-<p>Note that how <strong>Angelina Jolie</strong>, <strong>Julia Roberts</strong> and <strong>Idris Elba</strong>'s face got high score although there were no black faces in the dataset.</p>
+<h3 id="Anecdotal-proof-and-visual-reassurance">Anecdotal proof and visual reassurance<a class="anchor-link" href="#Anecdotal-proof-and-visual-reassurance">&#182;</a></h3><p>Below is a grid of some personal, friends, random folks and celebrity photos. Model seems to be assigning high scores to celebrities and regressing back to mean when it comes to normal faces. In some cases I tried to stylize and was able to get some good score.</p>
 
 </div>
 </div>
@@ -12354,35 +12300,7 @@ Features extracted. Shape: (24, 350, 350, 3)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="iOS-App-to-also-validate-how-model-is-working">iOS App to also validate how model is working<a class="anchor-link" href="#iOS-App-to-also-validate-how-model-is-working">&#182;</a></h2><p><em>Note: The iPhone application source was also uploaded in the project repo [<a href="https://github.com/rkamran/MLE/tree/master/smily_face/iOS_App/SmilyFace">4</a>]</em></p>
-<p>Rather than providing a score I am classifying a selfie pose as <code>Low</code>, <code>GOOD</code> and <code>Awesome</code>. The idea is to help people capture best faces when the beholder agent things it looks attractive.</p>
-<p>Here's a breakdown of categories
-<br>
-<code>Low &lt; 2.5
-2.5 &gt; GOOD &lt; 4.0
-Awesome &gt;= 4.0</code></p>
-<p>Here I am pretending to be frowny and happy and getting the treatment from the app accordingly. I run the model every 10 frames so it updates pretty quickly as you adjust faces.</p>
-<table bgcolor="#FFFFFF">
- <tr>
-     <td> <img src="./images/poor.PNG" width="40%"/></td>
-     <td>  <img src="./images/good.PNG" width="40%"/></td>
-    </tr>
-</table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reflection">Reflection<a class="anchor-link" href="#Reflection">&#182;</a></h2><p>This is a tough problem, first of all assigning a numeric score to attractiveness looks pretty random but then we can all agree that majority of the world is not Miss Universe and then it kind of make sense.</p>
-<p>The second aspect which I found really really interesting is that how good ResNet is in detecting features from an image. At least in my testing which I ran quite a few times to make sure that the's not a fluke it helped converge the model pretty quickly. I still see it as too good to be true scenario and looking for something I missed because my scores are way better than the study itself. That might be becasue of the upfront feature exraction.</p>
-<p>The third thing which I learnt from Dr. Adrian Rosebrock of pyimagesearch that serializing activations after running through a complex model is way efficient and faster compared to running it in the main pipeline. It enabled me to experiment and play with other SKLearn elements withouth ever worryign about run time or memory issues.</p>
-<h2 id="Imrovements">Imrovements<a class="anchor-link" href="#Imrovements">&#182;</a></h2><p>I believe the dataset is way too small. I will take it to next level by doign the follwing</p>
-<ol>
-<li>Use similar data to create a more elaborate profile of what a healthy good looking face should be. Of course there was absolutely no diversity in the dataset and it was very biased towards what it knew</li>
-<li>Combine the app with object detection technique and run it on multiple faces at the same time</li>
-</ol>
+<h2 id="iOS-App-to-also-validate-how-model-is-working">iOS App to also validate how model is working<a class="anchor-link" href="#iOS-App-to-also-validate-how-model-is-working">&#182;</a></h2><p><em>Note: The iPhone application source was also uploaded in the project repo [[4]]</em></p>
 
 </div>
 </div>
