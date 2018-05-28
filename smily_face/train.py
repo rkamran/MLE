@@ -9,6 +9,7 @@ from keras.optimizers import Adam
 from sklearn.metrics import regression
 from keras.applications import ResNet50
 import numpy as np
+import config as config
 
 def train_FBP5500(db_file, model_file, batch_size=16, lr=0.0001, epochs=20, input_shape=(350, 350, 3), loss="mean_squared_error"):
     train_db = h5py.File(db_file, "r")
@@ -43,13 +44,19 @@ def train_FBP5500(db_file, model_file, batch_size=16, lr=0.0001, epochs=20, inpu
     final.add(trained_model.layers[0])
     final.save(model_file)
 
-    print("[INFO] Regression score (MSE) on test data {}".format(regression.mean_squared_error(testY, model.predict(testX))))
+    if loss == 'mean_squared_error':
+        print("[INFO] Regression score (MSE) on test data {}".format(regression.mean_squared_error(testY, model.predict(testX))))
+    else:
+        print("[INFO] Regression score (MAE) on test data {}".format(regression.mean_absolute_error(testY, model.predict(testX))))
     
     return H
 
 def build_model(input_shape):
     model = Sequential()
+    # model.add(Dense(128, input_shape=input_shape, activation="relu"))
+    # model.add(Dense(1))
     model.add(Dense(1, input_shape=input_shape))
-
     return model
 
+
+#train_FBP5500(config.DATABSE_FILE, config.MODEL_FILE, epochs=20, lr=0.01)

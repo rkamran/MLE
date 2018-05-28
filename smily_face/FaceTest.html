@@ -11714,6 +11714,19 @@ ul.typeahead-list > li > a {
 .ansi-bold { font-weight: bold; }
 
     </style>
+<style type="text/css">
+    /*This file contains any manual css for this page that needs to override the global styles.
+This is only required when different pages style the same element differently. This is just
+a hack to deal with our current css styles and no new styling should be added in this file.*/
+
+#ipython-main-app {
+    position: relative;
+}
+#jupyter-main-app {
+    position: relative;
+}
+
+    </style>
 
 
 <style type="text/css">
@@ -11795,7 +11808,7 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Neccessary imports</span>
@@ -11807,24 +11820,6 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>Using TensorFlow backend.
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -11953,7 +11948,7 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="k">import</span> <span class="n">SVR</span>
@@ -11972,6 +11967,7 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 <span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainX</span><span class="p">,</span> <span class="n">trainY</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Baseline Score (MSE) </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regression</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">testY</span><span class="p">,</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testX</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] Baseline Score (MAE) </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regression</span><span class="o">.</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">testY</span><span class="p">,</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testX</span><span class="p">))))</span>
 </pre></div>
 
 </div>
@@ -11988,7 +11984,8 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[INFO] Baseline Score (MSE) 0.0340654716971207
+<pre>[INFO] Baseline Score (MSE) 0.03521251652316297
+[INFO] Baseline Score (MAE) 0.1318955946471878
 </pre>
 </div>
 </div>
@@ -12008,7 +12005,7 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -12034,50 +12031,49 @@ Report <a href="https://github.com/rkamran/MLE/blob/master/smily_face/report.pdf
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>WARNING:tensorflow:Variable *= will be deprecated. Use variable.assign_mul if you want assignment to the variable value or &#39;x = x * y&#39; if you want a new python Tensor object.
-Train on 4455 samples, validate on 495 samples
+<pre>Train on 4455 samples, validate on 495 samples
 Epoch 1/20
-4455/4455 [==============================] - 1s 164us/step - loss: 0.3804 - acc: 0.8599 - val_loss: 0.0955 - val_acc: 0.8727
+4455/4455 [==============================] - 5s 1ms/step - loss: 0.3694 - acc: 0.8579 - val_loss: 0.0709 - val_acc: 0.8828
 Epoch 2/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0974 - acc: 0.8599 - val_loss: 0.0756 - val_acc: 0.8727
+4455/4455 [==============================] - 1s 149us/step - loss: 0.0769 - acc: 0.8577 - val_loss: 0.0578 - val_acc: 0.8848
 Epoch 3/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0750 - acc: 0.8599 - val_loss: 0.0624 - val_acc: 0.8727
+4455/4455 [==============================] - 1s 147us/step - loss: 0.0620 - acc: 0.8575 - val_loss: 0.0484 - val_acc: 0.8848
 Epoch 4/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0595 - acc: 0.8602 - val_loss: 0.0554 - val_acc: 0.8727
+4455/4455 [==============================] - 1s 150us/step - loss: 0.0513 - acc: 0.8579 - val_loss: 0.0420 - val_acc: 0.8848
 Epoch 5/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0503 - acc: 0.8602 - val_loss: 0.0509 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 151us/step - loss: 0.0445 - acc: 0.8579 - val_loss: 0.0412 - val_acc: 0.8848
 Epoch 6/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0437 - acc: 0.8602 - val_loss: 0.0495 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 149us/step - loss: 0.0404 - acc: 0.8581 - val_loss: 0.0365 - val_acc: 0.8848
 Epoch 7/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0395 - acc: 0.8602 - val_loss: 0.0467 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0370 - acc: 0.8584 - val_loss: 0.0336 - val_acc: 0.8848
 Epoch 8/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0357 - acc: 0.8606 - val_loss: 0.0466 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0342 - acc: 0.8586 - val_loss: 0.0313 - val_acc: 0.8848
 Epoch 9/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0342 - acc: 0.8602 - val_loss: 0.0449 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0327 - acc: 0.8586 - val_loss: 0.0322 - val_acc: 0.8848
 Epoch 10/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0315 - acc: 0.8604 - val_loss: 0.0434 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0310 - acc: 0.8588 - val_loss: 0.0312 - val_acc: 0.8848
 Epoch 11/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0295 - acc: 0.8604 - val_loss: 0.0446 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0294 - acc: 0.8586 - val_loss: 0.0286 - val_acc: 0.8848
 Epoch 12/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0284 - acc: 0.8606 - val_loss: 0.0425 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 149us/step - loss: 0.0284 - acc: 0.8588 - val_loss: 0.0283 - val_acc: 0.8848
 Epoch 13/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0268 - acc: 0.8606 - val_loss: 0.0431 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0269 - acc: 0.8588 - val_loss: 0.0277 - val_acc: 0.8848
 Epoch 14/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0253 - acc: 0.8606 - val_loss: 0.0436 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0261 - acc: 0.8588 - val_loss: 0.0282 - val_acc: 0.8848
 Epoch 15/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0245 - acc: 0.8608 - val_loss: 0.0399 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 149us/step - loss: 0.0247 - acc: 0.8588 - val_loss: 0.0269 - val_acc: 0.8848
 Epoch 16/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0234 - acc: 0.8608 - val_loss: 0.0401 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0244 - acc: 0.8588 - val_loss: 0.0250 - val_acc: 0.8848
 Epoch 17/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0223 - acc: 0.8606 - val_loss: 0.0402 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0232 - acc: 0.8588 - val_loss: 0.0252 - val_acc: 0.8848
 Epoch 18/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0216 - acc: 0.8611 - val_loss: 0.0391 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0220 - acc: 0.8588 - val_loss: 0.0251 - val_acc: 0.8848
 Epoch 19/20
-4455/4455 [==============================] - 0s 72us/step - loss: 0.0204 - acc: 0.8611 - val_loss: 0.0382 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0214 - acc: 0.8588 - val_loss: 0.0234 - val_acc: 0.8848
 Epoch 20/20
-4455/4455 [==============================] - 0s 71us/step - loss: 0.0197 - acc: 0.8608 - val_loss: 0.0381 - val_acc: 0.8747
+4455/4455 [==============================] - 1s 148us/step - loss: 0.0208 - acc: 0.8590 - val_loss: 0.0246 - val_acc: 0.8848
 [INFO] Saving Model....
-[INFO] Regression score (MSE) on test data 0.029269013553857803
+[INFO] Regression score (MSE) on test data 0.03983936458826065
 </pre>
 </div>
 </div>
