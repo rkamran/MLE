@@ -44,12 +44,15 @@ def train_FBP5500(db_file, model_file, batch_size=16, lr=0.0001, epochs=20, inpu
     final.add(trained_model.layers[0])
     final.save(model_file)
 
+    score = model.evaluate(testX, testY)
+    print("***", score)
+
     if loss == 'mean_squared_error':
         print("[INFO] Regression score (MSE) on test data {}".format(regression.mean_squared_error(testY, model.predict(testX))))
     else:
         print("[INFO] Regression score (MAE) on test data {}".format(regression.mean_absolute_error(testY, model.predict(testX))))
     
-    return H
+    return H, score
 
 def build_model(input_shape):
     model = Sequential()
@@ -59,4 +62,12 @@ def build_model(input_shape):
     return model
 
 
-#train_FBP5500(config.DATABSE_FILE, config.MODEL_FILE, epochs=20, lr=0.01)
+scores = []
+for i in range(5):
+    H, score = train_FBP5500(config.DATABSE_FILE, config.MODEL_FILE, epochs=20, lr=0.001)
+    scores.append(score[0])
+
+print(scores)
+print(np.mean(scores))
+print(np.std(scores))
+print(np.var(scores))
